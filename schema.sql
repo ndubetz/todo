@@ -1,0 +1,1 @@
+create table todo_list (UserId int primary key, Timestamp timestamp, Title varchar(255));

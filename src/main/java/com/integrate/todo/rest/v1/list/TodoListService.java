@@ -20,16 +20,34 @@
 
 package com.integrate.todo.rest.v1.list;
 
+import com.integrate.todo.data.TodoListRecord;
+import com.integrate.todo.data.TodoListRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.Optional;
 
 @Component
 public class TodoListService {
 
-  public TodoList createTodoList(TodoList todoList) {
-    return null;
+  private TodoListRepository repository;
+
+  @Autowired
+  public TodoListService(TodoListRepository repository) {
+    this.repository = repository;
   }
 
-  public TodoList getList(String id) {
-    return null;
+  public TodoList createTodoList(TodoList todoList) {
+    TodoListRecord record = new TodoListRecord();
+    record.setTitle(todoList.getTitle());
+    return TodoList.fromRecord(this.repository.save(record));
   }
+
+  public TodoList getList(Integer id) {
+    Optional<TodoListRecord> record = repository.findById(id);
+    return record.map(TodoList::fromRecord).orElse(null);
+  }
+  //  if (record.isPresent()){
+  //    return TodoList.fromRecord(record.get());
+  //  } return null;
 }

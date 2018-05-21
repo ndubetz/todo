@@ -20,21 +20,31 @@
 
 package com.integrate.todo.rest.v1.list;
 
+import com.integrate.todo.data.TodoListRecord;
+
+import java.time.Instant;
+
 public class TodoList {
   private String title;
+  private Integer userID;
 
   public TodoList() {
   }
 
-  public TodoList(String title) {
+  public TodoList(String title, Integer userID) {
     this.title = title;
+    this.userID = userID;
   }
 
   public String getTitle() {
     return title;
   }
 
-  public void setTitle(String title) {
-    this.title = title;
+  public Integer getUserID() {
+    return userID;
+  }
+
+  public static TodoList fromRecord(TodoListRecord record){
+    return new TodoList(record.getTitle(), record.getUserID());
   }
 }
