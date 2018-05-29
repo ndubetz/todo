@@ -20,31 +20,54 @@
 
 package com.integrate.todo.rest.v1.list;
 
+
 import com.integrate.todo.data.TodoListRecord;
 
-import java.time.Instant;
+import java.util.Objects;
 
 public class TodoList {
   private String title;
   private Integer userID;
 
   public TodoList() {
-  }
-
-  public TodoList(String title, Integer userID) {
     this.title = title;
-    this.userID = userID;
   }
 
-  public String getTitle() {
-    return title;
+  public TodoList setTitle(String title) {
+    this.title = title;
+    return this;
+  }
+
+  public TodoList setUserID(Integer userID) {
+    this.userID = userID;
+    return this;
   }
 
   public Integer getUserID() {
     return userID;
   }
 
+  public String getTitle() {
+    return title;
+  }
+
   public static TodoList fromRecord(TodoListRecord record){
-    return new TodoList(record.getTitle(), record.getUserID());
+    return new TodoList().setTitle(record.getTitle()).setUserID(record.getUserID());
+
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    TodoList todoList = (TodoList) o;
+    return Objects.equals(title, todoList.title) &&
+            Objects.equals(userID, todoList.userID);
+  }
+
+  @Override
+  public int hashCode() {
+
+    return Objects.hash(title, userID);
   }
 }

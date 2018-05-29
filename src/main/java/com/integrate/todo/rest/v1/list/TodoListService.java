@@ -36,18 +36,13 @@ public class TodoListService {
   public TodoListService(TodoListRepository repository) {
     this.repository = repository;
   }
-
   public TodoList createTodoList(TodoList todoList) {
-    TodoListRecord record = new TodoListRecord();
-    record.setTitle(todoList.getTitle());
-    return TodoList.fromRecord(this.repository.save(record));
+    TodoListRecord record = repository.save(new TodoListRecord(todoList.getTitle()));
+    return TodoList.fromRecord(record);
   }
 
   public TodoList getList(Integer id) {
-    Optional<TodoListRecord> record = repository.findById(id);
-    return record.map(TodoList::fromRecord).orElse(null);
+    return null;
   }
-  //  if (record.isPresent()){
-  //    return TodoList.fromRecord(record.get());
-  //  } return null;
+
 }

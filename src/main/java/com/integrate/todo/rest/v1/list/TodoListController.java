@@ -33,19 +33,18 @@ public class TodoListController {
 
   @Autowired
   public TodoListController(TodoListService todoListService) {
-    this.todoListService = todoListService;
-
+      this.todoListService = todoListService;
   }
 
   @PostMapping
   public @ResponseBody
   ResponseEntity<TodoList> createList(@RequestBody TodoList todoList) {
-     return new ResponseEntity<>(todoListService.createTodoList(todoList), HttpStatus.CREATED);
+     return new ResponseEntity<>(this.todoListService.createTodoList(todoList), HttpStatus.CREATED);
   }
 
   @GetMapping("/{id}")
   public @ResponseBody TodoList readList(@PathVariable Integer id) {
-    return todoListService.getList(id);
+    return null;
   }
 
   @PutMapping
