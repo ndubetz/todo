@@ -21,6 +21,11 @@ public class TodoListRecord {
         this.timeStamp = Instant.now();
     }
 
+    public TodoListRecord(){
+        this("");
+    }
+
+
     public void setUserID(Integer userID) {
         this.userID = userID;
     }

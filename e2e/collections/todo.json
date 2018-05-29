@@ -47,7 +47,115 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"title\": \"{{title}}\"\n}"
+							"raw": "{\n  \"title\": \"{{title}}\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "171230c3-f8fc-4ab5-85a0-fc22add97987",
+								"type": "text/javascript",
+								"exec": [
+									"var _ = require(\"lodash\");",
+									"",
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Has properties\", function () {",
+									"    var expectedTitle = pm.environment.get(\"title\");",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.title).to.equal(expectedTitle);",
+									"    pm.expect(_.has(jsonData, \"userID\")).true;",
+									"});",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"{{title}}\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "171230c3-f8fc-4ab5-85a0-fc22add97987",
+								"type": "text/javascript",
+								"exec": [
+									"var _ = require(\"lodash\");",
+									"",
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Has properties\", function () {",
+									"    var expectedTitle = pm.environment.get(\"title\");",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.title).to.equal(expectedTitle);",
+									"    pm.expect(_.has(jsonData, \"userID\")).true;",
+									"});",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"{{title}}\"\n}"
 						},
 						"url": {
 							"raw": "http://localhost:8080/list",
@@ -65,19 +173,79 @@
 				},
 				{
 					"name": "Get List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6e3ce69b-2637-4fb3-b2aa-c4f2738003e2",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"",
+									"pm.test(\"Returned list has same userID\", function () {",
+									"    var expectedTitle = pm.environment.get(\"title\");",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.userID).to.eql(3);",
+									"    pm.expect(jsonData.title).to.equal(expectedTitle);",
+									"",
+									"});"
+								]
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [],
 						"body": {},
 						"url": {
-							"raw": "http://localhost:8080/3",
+							"raw": "http://localhost:8080/list/3",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"list",
 								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a16c4800-2503-4f8a-b992-40bf7079c897",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/list/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"list",
+								"4"
 							]
 						}
 					},
