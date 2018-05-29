@@ -8,6 +8,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "todo_list" )
 public class TodoListRecord {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer userID;

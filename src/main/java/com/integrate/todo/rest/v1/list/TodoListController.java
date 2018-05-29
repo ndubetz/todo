@@ -43,8 +43,12 @@ public class TodoListController {
   }
 
   @GetMapping("/{id}")
-  public @ResponseBody TodoList readList(@PathVariable Integer id) {
-    return null;
+  public @ResponseBody ResponseEntity<TodoList> readList(@PathVariable Integer id) {
+    TodoList list = this.todoListService.getList(id);
+
+    if( list.getUserID() == -1 )
+      return new ResponseEntity<>( list, HttpStatus.NO_CONTENT );
+    return new ResponseEntity<>( list, HttpStatus.OK );
   }
 
   @PutMapping

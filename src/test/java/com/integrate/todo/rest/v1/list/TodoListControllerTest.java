@@ -25,4 +25,43 @@ public class TodoListControllerTest {
         assertThat(responseEntity).isEqualTo(expectedResponseEntity);
         verify(mockService).createTodoList(todoListPassedIn);
     }
+
+    @Test
+    public void getList_returnsListAndHttpStatus200() {
+        TodoListService mockService = mock( TodoListService.class );
+        TodoListController todoListController = new TodoListController( mockService );
+
+        TodoList expectedTodoList = new TodoList();
+        expectedTodoList.setUserID( 1 );
+
+        when( mockService.getList( 1 ) ).thenReturn( expectedTodoList );
+
+        ResponseEntity<TodoList> resultList = todoListController.readList(1);
+
+        ResponseEntity expectedResponse = new ResponseEntity<>( expectedTodoList, HttpStatus.OK );
+
+        assertThat( resultList ).isEqualTo( expectedResponse );
+        verify( mockService ).getList( 1 );
+    }
+
+    @Test
+    public void getList_whenDoesntExist_returnsHttpStatus204(){
+        TodoListService mockService = mock( TodoListService.class );
+        TodoListController todoListController = new TodoListController( mockService );
+
+        TodoList expectedTodoList = new TodoList();
+        expectedTodoList.setUserID(-1);
+
+        int id = 8;
+        when( mockService.getList(id) ).thenReturn( expectedTodoList );
+
+        ResponseEntity<TodoList> resultList = todoListController.readList(id);
+
+        ResponseEntity expectedResponse = new ResponseEntity<>( expectedTodoList, HttpStatus.NO_CONTENT );
+
+        assertThat( resultList ).isEqualTo( expectedResponse );
+        verify( mockService ).getList(id);
+
+
+    }
 }
