@@ -21,6 +21,8 @@
 package com.integrate.todo.rest.v1.list;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -36,8 +38,9 @@ public class TodoListController {
   }
 
   @PostMapping
-  public @ResponseBody TodoList createList(@RequestBody TodoList todoList) {
-    return todoListService.createTodoList(todoList);
+  public @ResponseBody
+  ResponseEntity<TodoList> createList(@RequestBody TodoList todoList) {
+     return new ResponseEntity<>(todoListService.createTodoList(todoList), HttpStatus.CREATED);
   }
 
   @GetMapping("/{id}")

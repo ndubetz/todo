@@ -1,16 +1,42 @@
 {
 	"info": {
-		"_postman_id": "4084c71a-69ee-4f7d-8b0f-ebe396ef2026",
+		"_postman_id": "832b6c5d-7850-4aa2-8cd2-47f0862fd92b",
 		"name": "Todo Requests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
 			"name": "CRUD Operations",
-			"description": "",
+			"description": null,
 			"item": [
 				{
 					"name": "Create List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "171230c3-f8fc-4ab5-85a0-fc22add97987",
+								"type": "text/javascript",
+								"exec": [
+									"var _ = require(\"lodash\");",
+									"",
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Has properties\", function () {",
+									"    var expectedTitle = pm.environment.get(\"title\");",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.title).to.equal(expectedTitle);",
+									"    pm.expect(_.has(jsonData, \"userID\")).true;",
+									"});",
+									"",
+									""
+								]
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [
@@ -21,7 +47,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"title\": \"Untitled\"\n}"
+							"raw": "{\n\t\"title\": \"{{title}}\"\n}"
 						},
 						"url": {
 							"raw": "http://localhost:8080/list",
@@ -32,6 +58,26 @@
 							"port": "8080",
 							"path": [
 								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"3"
 							]
 						}
 					},
