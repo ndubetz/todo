@@ -29,9 +29,7 @@ public class TodoList {
   private String title;
   private Integer userID;
 
-  public TodoList() {
-    this.title = title;
-  }
+  public TodoList() { }
 
   public TodoList setTitle(String title) {
     this.title = title;
@@ -52,8 +50,9 @@ public class TodoList {
   }
 
   public static TodoList fromRecord(TodoListRecord record){
-    return new TodoList().setTitle(record.getTitle()).setUserID(record.getUserID());
-
+    return new TodoList()
+      .setTitle( record.getTitle() )
+      .setUserID( record.getUserID() );
   }
 
   @Override
