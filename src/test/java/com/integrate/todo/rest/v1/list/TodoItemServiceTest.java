@@ -47,4 +47,14 @@ public class TodoItemServiceTest {
   }
 
 
+  @Test
+  public void createTodoItem_addsItemToAppropriateList() {
+    // if i pass in an item
+    // the list with the appropriate ID has this item added to its toDoItems
+
+//    TodoListService
+
+  }
+
+
 }

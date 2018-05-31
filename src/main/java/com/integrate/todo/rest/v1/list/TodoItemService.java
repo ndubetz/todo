@@ -16,9 +16,11 @@ public class TodoItemService {
 
 
   public TodoItem createTodoItem(TodoItem todoItem, Integer expectedListID) {
+
     TodoItemRecord record = repository.save(
       new TodoItemRecord().setContent( todoItem.getContent() )
     );
     return TodoItem.fromRecord( record );
   }
+
 }

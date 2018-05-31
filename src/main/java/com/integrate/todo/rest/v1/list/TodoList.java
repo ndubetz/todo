@@ -21,19 +21,26 @@
 package com.integrate.todo.rest.v1.list;
 
 
+import com.integrate.todo.data.TodoItemRecord;
 import com.integrate.todo.data.TodoListRecord;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Objects;
 
 public class TodoList {
+
   private String title;
   private Integer userID;
 
+  private List<TodoItem> todoItems = new LinkedList<>();
+
+
   public TodoList() { }
 
-  public TodoList setTitle(String title) {
-    this.title = title;
-    return this;
+
+  public Integer getUserID() {
+    return userID;
   }
 
   public TodoList setUserID(Integer userID) {
@@ -41,18 +48,56 @@ public class TodoList {
     return this;
   }
 
-  public Integer getUserID() {
-    return userID;
-  }
-
   public String getTitle() {
     return title;
   }
 
+  public TodoList setTitle(String title) {
+    this.title = title;
+    return this;
+  }
+
+
+  public List<TodoItem> getTodoItems() {
+    return todoItems;
+  }
+
+  public TodoList setTodoItems(List<TodoItem> todoItems) {
+    this.todoItems = todoItems;
+    return this;
+  }
+
   public static TodoList fromRecord(TodoListRecord record){
-    return new TodoList()
-      .setTitle( record.getTitle() )
-      .setUserID( record.getUserID() );
+    TodoList list = new TodoList();
+
+    if( record == null ) return null;
+    if( record.getTitle() != null ) list.setTitle( record.getTitle() );
+    if( record.getUserID() != null ) list.setUserID( record.getUserID() );
+    if( record.getTodoItems() != null ) {
+      List<TodoItemRecord> todoItemRecords = record.getTodoItems();
+      List<TodoItem> items = new LinkedList<>();
+      for( int index = 0; index < todoItemRecords.size(); index++ )
+        items.add( TodoItem.fromRecord( todoItemRecords.get( index ) ) );
+
+      list.setTodoItems( items );
+    }
+
+    return list;
+  }
+
+  public static TodoListRecord toRecord( TodoList list ) {
+    TodoListRecord record;
+
+    if( list.getTitle() != null )
+      record = new TodoListRecord( list.getTitle() );
+    else record = new TodoListRecord();
+
+    if( list.getUserID() != null && list.getUserID() > -1 )
+      record.setUserID( list.getUserID() );
+    if( list.getTodoItems() != null && list.getTodoItems().size() > 0 )
+      record.setTodoItems( list.getTodoItems() );
+
+    return record;
   }
 
   @Override

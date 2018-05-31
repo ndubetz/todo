@@ -11,6 +11,12 @@ public class TodoItem {
 
   public TodoItem() { }
 
+  public static TodoItemRecord toRecord( TodoItem todoItem ) {
+    TodoItemRecord record = new TodoItemRecord();
+    if( todoItem.getContent() != null ) record.setContent( todoItem.getContent() );
+    return record;
+  }
+
 
   public String getContent() { return this.content; }
 
