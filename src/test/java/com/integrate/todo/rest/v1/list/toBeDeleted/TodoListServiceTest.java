@@ -1,7 +1,8 @@
-package com.integrate.todo.rest.v1.list;
+package com.integrate.todo.rest.v1.list.toBeDeleted;
 
 import com.integrate.todo.data.TodoListRecord;
 import com.integrate.todo.data.TodoListRepository;
+import com.integrate.todo.rest.v1.list.TodoList;
 import org.junit.Test;
 
 import java.util.Optional;
@@ -41,8 +42,6 @@ public class TodoListServiceTest {
 
         TodoListService service = new TodoListService( mockRepository );
 
-        // TEST: If there is a record with that ID
-
         TodoListRecord record_input = new TodoListRecord("" );
         record_input.setUserID( 1 );
         Optional<TodoListRecord> expected_record = Optional.of( record_input );
@@ -54,10 +53,6 @@ public class TodoListServiceTest {
 
         assertThat( list ).isEqualTo( expected_list );
         verify( mockRepository ).findById( 1 );
-
-        // make sure the id we asked for is the same as the id in the record we get back
-
-        // TEST: If there is not a record with that ID
     }
 
     @Test

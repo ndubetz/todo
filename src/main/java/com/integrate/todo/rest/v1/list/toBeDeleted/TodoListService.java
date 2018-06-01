@@ -18,10 +18,11 @@
  * ______________________________________________________________________________
  */
 
-package com.integrate.todo.rest.v1.list;
+package com.integrate.todo.rest.v1.list.toBeDeleted;
 
 import com.integrate.todo.data.TodoListRecord;
 import com.integrate.todo.data.TodoListRepository;
+import com.integrate.todo.rest.v1.list.TodoList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

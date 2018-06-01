@@ -29,33 +29,34 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/list")
 public class TodoListController {
 
-  private TodoListService todoListService;
+  private final TodoService service;
 
   @Autowired
-  public TodoListController(TodoListService todoListService) {
-      this.todoListService = todoListService;
+  public TodoListController( TodoService service ) {
+      this.service = service;
   }
 
   @PostMapping
   public @ResponseBody
   ResponseEntity<TodoList> createList(@RequestBody TodoList todoList) {
-     return new ResponseEntity<>(this.todoListService.createTodoList(todoList), HttpStatus.CREATED);
+     return new ResponseEntity<>(
+       this.service.createTodoList( todoList ),
+       HttpStatus.CREATED
+     );
   }
 
   @GetMapping("/{id}")
-  public @ResponseBody ResponseEntity<TodoList> readList(@PathVariable Integer id) {
-
-    TodoList list = this.todoListService.getList(id);
-    if( list.getUserID() == -1 ) {
-      return new ResponseEntity<>(list, HttpStatus.NO_CONTENT);
-    }
-    return new ResponseEntity<>(list, HttpStatus.OK);
+  public @ResponseBody
+  ResponseEntity<TodoList> readList( @PathVariable Integer id ) {
+    TodoList list = this.service.getList( id );
+    if( list.getUserID() == -1 )
+      return new ResponseEntity<>( list, HttpStatus.NO_CONTENT );
+    return new ResponseEntity<>( list, HttpStatus.OK );
   }
 
   @PutMapping
-  public @ResponseBody TodoList updateList() {
-    return null;
-  }
+  public @ResponseBody
+  TodoList updateList() { return null; }
 
   @DeleteMapping
   public void deleteList() {

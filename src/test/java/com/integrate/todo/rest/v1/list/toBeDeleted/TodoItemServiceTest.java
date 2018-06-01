@@ -1,10 +1,9 @@
-package com.integrate.todo.rest.v1.list;
+package com.integrate.todo.rest.v1.list.toBeDeleted;
 
 import com.integrate.todo.data.TodoItemRecord;
 import com.integrate.todo.data.TodoItemRepository;
+import com.integrate.todo.rest.v1.list.TodoItem;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;

@@ -1,5 +1,6 @@
 package com.integrate.todo.rest.v1.list;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,15 +15,28 @@ import static org.mockito.Mockito.when;
 
 public class TodoItemControllerTest {
 
+  private TodoService mockService;
+  private TodoItemController controller;
+
+
+  @Before
+  public void setup() {
+    this.mockService = mock( TodoService.class );
+    this.controller = new TodoItemController( mockService );
+  }
+
+
   @Test
   public void createItem_returnsHttpStatusCreated() {
 
-    TodoItemService mockItemService = mock( TodoItemService.class );
-    TodoItemController itemController = new TodoItemController( mockItemService );
-
     Integer inputListID = 4;
-    TodoItem inputItem = new TodoItem();
-    TodoItem expectedItem = new TodoItem();
+    String expectedItemContent = "Get Some Work Done";
+
+    TodoItem inputItem = new TodoItem().setContent( expectedItemContent );
+    TodoList expectedList = new TodoList();
+    TodoItem expectedItem = new TodoItem().setContent( expectedItemContent );
+
+    expectedList.getTodoItems().add( expectedItem );
 
     ResponseEntity expectedResponse = new ResponseEntity<>(
       expectedItem,
@@ -30,14 +44,17 @@ public class TodoItemControllerTest {
     );
 
 
-    when( mockItemService.createTodoItem( inputItem, inputListID ) )
-      .thenReturn( expectedItem );
+    when( this.mockService.addItemToList( inputItem, inputListID ) )
+      .thenReturn( expectedList );
 
-    ResponseEntity<TodoItem> response = itemController.createItem( inputItem, inputListID );
+    ResponseEntity<TodoItem> response = this.controller.createItem( inputItem, inputListID );
 
 
-    assertThat( response ).isEqualTo( expectedResponse );
-    verify( mockItemService ).createTodoItem( inputItem, inputListID );
+    verify( this.mockService ).
+      addItemToList( inputItem, inputListID );
+
+    assertThat( response )
+      .isEqualTo( expectedResponse );
 
   }
 

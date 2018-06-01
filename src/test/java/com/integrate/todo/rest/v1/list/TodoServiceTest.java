@@ -35,24 +35,24 @@ public class TodoServiceTest {
 
     int expectedID = 3;
     String expectedTitle = "Specific value";
-    TodoListRecord todoRecordPassedIn = new TodoListRecord(expectedTitle);
-    TodoListRecord expectedRecord = new TodoListRecord(expectedTitle);
-
-    expectedRecord.setUserID(expectedID);
-
+    TodoListRecord expectedRecord = new TodoListRecord( expectedTitle ).setUserID( expectedID );
     TodoList expectedTodoList = new TodoList()
       .setTitle( expectedTitle )
       .setUserID( expectedID );
 
+    TodoListRecord inputRecord = new TodoListRecord( expectedTitle );
 
-    when( this.mockRepository.save( todoRecordPassedIn ) )
+
+    when( this.mockRepository.save( inputRecord ) )
       .thenReturn( expectedRecord );
 
-    TodoList todoList = this.service.createTodoList(new TodoList().setTitle(expectedTitle));
+    TodoList todoList = this.service.createTodoList(
+      new TodoList().setTitle( expectedTitle )
+    );
 
 
-    verify(mockRepository)
-      .save( todoRecordPassedIn );
+    verify( mockRepository )
+      .save( inputRecord );
 
     assertThat( todoList )
       .isEqualTo( expectedTodoList );
@@ -78,8 +78,8 @@ public class TodoServiceTest {
     TodoList list = this.service.getList(expectedListID);
 
 
-    verify( this.mockRepository)
-      .findById(expectedListID);
+    verify( this.mockRepository )
+      .findById( expectedListID );
 
     assertThat( list )
       .isEqualTo( expected_list );
@@ -92,10 +92,12 @@ public class TodoServiceTest {
       .setTitle( "" )
       .setUserID( -1 );
 
+
     when( mockRepository.findById( expectedListID ) )
       .thenReturn( Optional.empty() );
 
     TodoList returnedList = this.service.getList(expectedListID);
+
 
     verify( this.mockRepository)
       .findById( expectedListID );

@@ -3,9 +3,11 @@ package com.integrate.todo.rest.v1.list;
 import com.integrate.todo.data.TodoListRecord;
 import com.integrate.todo.data.TodoListRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
+@Component
 public class TodoService {
 
   private TodoListRepository repository;

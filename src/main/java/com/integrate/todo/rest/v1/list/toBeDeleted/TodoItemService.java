@@ -1,7 +1,8 @@
-package com.integrate.todo.rest.v1.list;
+package com.integrate.todo.rest.v1.list.toBeDeleted;
 
 import com.integrate.todo.data.TodoItemRecord;
 import com.integrate.todo.data.TodoItemRepository;
+import com.integrate.todo.rest.v1.list.TodoItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
